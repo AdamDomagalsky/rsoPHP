@@ -1,0 +1,22 @@
+<?php
+//use testdb
+// tworzymy tabele users jesli nie istnieje
+//CREATE TABLE IF NOT EXISTS `users` (`id` int(11) NOT NULL AUTO_INCREMENT,`username` varchar(32) NOT NULL,`password` varchar(32) NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `username` (`username`));
+//jakis tam user adam adam
+//INSERT INTO users SET users.username = 'adam', users.password = 'adam';
+// tworzymy usera tylko do selecta i insera
+//CREATE USER 'regLog'@'%' IDENTIFIED BY 'zaq12wsx';
+//GRANT INSERT ON DATABASE.* TO 'regLog'@'%';
+//GRANT SELECT ON DATABASE.* TO 'regLog'@'%';
+//mysql -u tester -p
+
+// jak sprawdzic port
+// SHOW GLOBAL VARIABLES LIKE 'PORT';
+
+   define('DB_SERVER', 'localhost:3306');
+   define('DB_USERNAME', 'regLog');
+   define('DB_PASSWORD', 'zaq12wsx');
+   define('DB_DATABASE', 'testdb');
+   $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+?>
+
