@@ -9,7 +9,7 @@
         $mypassword  = mysqli_real_escape_string($db, $_POST['password']);
 
         $sql = "SELECT id FROM users WHERE username = '$myusername' and password = '$mypassword'";
-        $result = mtsqli_query($db,$sql);
+        $result = mysqli_query($db,$sql);
         // Fetches a result row as an associative, a numeric array, or both
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $active = $row['active'];
@@ -27,7 +27,7 @@
         }
     }
 ?>
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
