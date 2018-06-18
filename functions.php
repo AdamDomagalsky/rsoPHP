@@ -2,25 +2,28 @@
 // Include config file
 $host = gethostname();
 require_once "{$host}config.php";
+require_once "session.php";
 
 
 function session_check()
 {
-        if(!isset($_COOKIE['MYSID'])) {
+	echo 'Session check> ';
+	if(!isset($_COOKIE['MYSID'])) {
                 $token=md5(rand(0,1000000000));
                 setcookie('MYSID', $token);
                 $user=array('id'=>NULL,'username'=>"Visitor");
                 redis_set_json($token, $user,0);
         }
         else
-                $token=$_COOKIE['MYSID'];
-        if (isset($_POST['username']) and isset($_POST['password']))
+                $token="PHPREDIS_SESSION:{$_COOKIE['PHPSESSID']}";
+	if (isset($_POST['username']) and isset($_POST['password']))
                 return authorize($_POST['username'],$_POST['password'],$token);
         else
                 return authorize(NULL,NULL,$token);
 }
 function authorize($username,$password, $token)
 {
+	echo 'Authorize> ';
         if ($username!=NULL and $password!=NULL)
         {
                 if ($username=="kalkos" and $password=="qwerty")
@@ -35,6 +38,7 @@ function authorize($username,$password, $token)
 }
 function logout($user)
 {
+	echo 'Logout';
         $token=$_COOKIE['MYSID'];
         $user=array('id'=>NULL,'username'=>"Visitor");
         redis_set_json($token,$user,"0");
@@ -42,6 +46,7 @@ function logout($user)
 }
 function redis_set_json($key, $val, $expire)
 {
+	echo'redis_set_jeson> ';
         $redisClient = new Redis();
         $redisClient->connect( REDIS_SERVER, REDIS_PORT );
 	$redisClient->auth(REDIS_PASSWORD);
@@ -54,20 +59,28 @@ function redis_set_json($key, $val, $expire)
 }
 function redis_get_json($key)
 {
-        $redisClient = new Redis();
+	echo 'redis_get_json> ';
+
+	$redisClient = new Redis();
         $redisClient->connect( REDIS_SERVER, REDIS_PORT );
-	
 	$redisClient->auth(REDIS_PASSWORD);
-	$ret=json_decode($redisClient->get($key),true);
+	
+	// echo session_decode($redisClient->get($key));
+	$ret = Session::unserialize($redisClient->get($key));
+	// $ret=json_decode($redisClient->get($key),true);
         $redisClient->close();
-        return $ret;
+	return $ret;
 }
 function show_menu($user)
 {
+	echo $user;
+	echo '<pre>'; print_r($user); echo '</pre>';
+	
+	
 echo '
 <nav class="uk-navbar">
     <ul class="uk-navbar-nav">';
-                if ($user==NULL or $user['id']==NULL)
+                if ($user==NULL or $user['username']==NULL)
                         echo '<li class="uk-active"><a href="login.php">Login</a></li>';
                 else
                         echo '<li class="uk-active"><a href="logout.php">Logout</a></li>';
