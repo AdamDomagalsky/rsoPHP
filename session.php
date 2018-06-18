@@ -1,4 +1,6 @@
 <?php
+
+// kodzik znalazlem na http://php.net/manual/en/function.session-decode.php#108037
 class Session {
     public static function unserialize($session_data) {
         $method = ini_get("session.serialize_handler");
