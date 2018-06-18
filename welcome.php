@@ -1,13 +1,9 @@
 <?php
-// Initialize the session
-session_start();
-require_once('session.php');
-check_session();
-// If session variable is not set it will redirect to login page
-// if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
-//   header("location: login.php");
-//   exit;
-// }
+    // Initialize the session
+    session_start();
+    require_once('session.php');
+    $logged = check_session();
+    require_once('menu.php');
 ?>
  
 <!DOCTYPE html>
@@ -24,6 +20,7 @@ check_session();
     <div class="page-header">
         <h1>Hi, <b><?php echo htmlspecialchars($_SESSION['username']); ?></b>. Welcome to our site.</h1>
     </div>
+    <?PHP show_menu($logged); ?>
     <p><a href="index.php" class="btn btn-success">Go Back to index.php</a></p>
     <p><a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a></p>
 </body>
