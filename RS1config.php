@@ -13,13 +13,18 @@
 // jak sprawdzic port
 // SHOW GLOBAL VARIABLES LIKE 'PORT';
 
-   define('DB_SERVER', 'localhost:3306');
-   define('DB_USERNAME', 'regLog');
-   define('DB_PASSWORD', 'zaq12wsx');
-   define('DB_DATABASE', 'testdb');
-   $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+    define('REDIS_SERVER','localhost');
+    define('REDIS_PORT', 6379);
+    define('REDIS_PASSWORD','zaq12wsx');
 
-   // Check connection
+    
+    define('DB_SERVER', 'localhost:3306');
+    define('DB_USERNAME', 'regLog');
+    define('DB_PASSWORD', 'zaq12wsx');
+    define('DB_DATABASE', 'testdb');
+    $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+
+    // Check connection
     if($db === false){
         die("ERROR: Could not connect. " . mysqli_connect_error());
     }

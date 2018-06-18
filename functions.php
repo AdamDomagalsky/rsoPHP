@@ -1,4 +1,9 @@
 <?PHP
+// Include config file
+$host = gethostname();
+require_once "{$host}config.php";
+
+
 function session_check()
 {
         if(!isset($_COOKIE['MYSID'])) {
@@ -38,8 +43,8 @@ function logout($user)
 function redis_set_json($key, $val, $expire)
 {
         $redisClient = new Redis();
-        $redisClient->connect( '127.0.0.1', 6379 );
-	$redisClient->auth('zaq12wsx');
+        $redisClient->connect( REDIS_SERVER, REDIS_PORT );
+	$redisClient->auth(REDIS_PASSWORD);
         $value=json_encode($val);
         if ($expire > 0)
                 $redisClient->setex($key, $expire, $value );
@@ -50,9 +55,9 @@ function redis_set_json($key, $val, $expire)
 function redis_get_json($key)
 {
         $redisClient = new Redis();
-        $redisClient->connect( '127.0.0.1', 6379 );
+        $redisClient->connect( REDIS_SERVER, REDIS_PORT );
 	
-	$redisClient->auth('zaq12wsx');
+	$redisClient->auth(REDIS_PASSWORD);
 	$ret=json_decode($redisClient->get($key),true);
         $redisClient->close();
         return $ret;
