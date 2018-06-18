@@ -1,5 +1,8 @@
 <?php
 
+$host = gethostname();
+require_once "{$host}config.php";
+
 function check_session(){
 
     // If session variable is not set it will redirect to login page
