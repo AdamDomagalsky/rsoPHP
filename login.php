@@ -50,7 +50,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             /* Password is correct, so start a new session and
                             save the username to the session */
                             session_start();
-                            $_SESSION['username'] = $username;      
+                            $_SESSION['username'] = $username; 
+                            $_SESSION['loggedin'] = true;      
                             $_SESSION['pole'] = 'zeby bylo ze dziala xD';      
                             header("location: welcome.php");
                         } else{

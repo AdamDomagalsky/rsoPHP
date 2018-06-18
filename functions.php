@@ -65,7 +65,6 @@ function redis_get_json($key)
         $redisClient->connect( REDIS_SERVER, REDIS_PORT );
 	$redisClient->auth(REDIS_PASSWORD);
 	
-	// echo session_decode($redisClient->get($key));
 	$ret = Session::unserialize($redisClient->get($key));
 	// $ret=json_decode($redisClient->get($key),true);
         $redisClient->close();
