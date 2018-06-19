@@ -9,7 +9,7 @@
 
     if (isset($_POST['but_upload'])) {
         $name = $_FILES['file']['name'];
-        $target_dir = "/mnt/avatars/";
+        $target_dir = "avatars/";
         $target_file = $target_dir . basename($_FILES["file"]["name"]);
         // Select file type
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -26,14 +26,21 @@
         }
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b29c2434960bdb89eb7fd0c0b130c80b76a71480
     if (isset($_POST['testBut'])) {
         $sql = "select name from images where id=1";
-        $result = mysqli_query($con,$sql);
+        $result = mysqli_query($db,$sql);
         $row = mysqli_fetch_array($result);
 
+
+
         $image = $row['name'];
-        $image_src = "/mnt/avatars/".$image;
-        echo '<img src="'.$image_src.'">';
+	$image_src = "avatars/".$image;
+	echo $image_src;
+        echo '<img src="'.$image_src.'" height="100" width="100">';
     }
   
 
