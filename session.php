@@ -2,7 +2,6 @@
 
 $host = gethostname();
 require_once "{$host}config.php";
-require_once "clasSession.php";
 
 
 // kodzik znalazlem na http://php.net/manual/en/function.session-decode.php#108037
