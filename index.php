@@ -7,7 +7,7 @@
 ?>
 <html>
 <head>
-        <title>Welcome</title>
+        <title>Home</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.3/css/uikit.min.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.3/js/uikit.min.js"></script>
         <style type="text/css">
