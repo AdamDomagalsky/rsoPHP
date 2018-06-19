@@ -2,7 +2,7 @@
     // Initialize the session
     session_start();
     require_once('session.php');
-    $logged = check_session();
+    $user = check_session();
     require_once('menu.php');
     $host = gethostname();
     require_once "{$host}config.php";
@@ -26,8 +26,7 @@
         }
     }
 
-
-    f (isset($_POST['testBut'])) {
+    if (isset($_POST['testBut'])) {
         $sql = "select name from images where id=1";
         $result = mysqli_query($con,$sql);
         $row = mysqli_fetch_array($result);
@@ -54,7 +53,7 @@
     </style>
 </head>
 <body>
-    <?PHP show_menu($logged); ?>
+    <?PHP show_menu($user); ?>
     <form method="post" action="" enctype='multipart/form-data'>
         <input type='file' name='file' />
         <input type='submit' value='Save name' name='but_upload'>

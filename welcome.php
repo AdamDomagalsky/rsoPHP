@@ -2,7 +2,7 @@
     // Initialize the session
     session_start();
     require_once('session.php');
-    $logged = check_session();
+    $user = check_session();
     require_once('menu.php');
 ?>
  
@@ -20,7 +20,7 @@
 </head>
 <body>
     
-    <?PHP show_menu($logged); ?>
+    <?PHP show_menu($user); ?>
 <div class="page-header">
         <h1>Hi, <b><?php echo htmlspecialchars($_SESSION['username']); ?></b>. Welcome to our site.</h1>
     </div>
