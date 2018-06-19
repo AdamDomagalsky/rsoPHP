@@ -61,8 +61,10 @@ function check_session(){
 
     // If session variable is not set it will redirect to login page
     if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
-        header("location: login.php");
-        exit;
+//        header("location: login.php");
+  //      exit;
+	    echo "<a href='login.php'>Log in</a>";
+	    exit;
     } else {
         $token="PHPREDIS_SESSION:{$_COOKIE['PHPSESSID']}";
 	return restore_session($token);
