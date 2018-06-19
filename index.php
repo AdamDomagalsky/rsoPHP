@@ -1,6 +1,6 @@
 <?PHP
-        require_once('functions.php');
-        $user=session_check();
+        require_once('session.php');
+        $logged=check_session();
 ?>
 <html>
 <head>
@@ -9,7 +9,7 @@
 </script>
 </head>
 <body>
-<?PHP show_menu($user); ?>
+<?PHP show_menu($logged); ?>
 Hello <?PHP echo $user['username']; ?>! This is my website.
 </body>
 </html>
