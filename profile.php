@@ -26,6 +26,16 @@
         }
     }
 
+
+    f (isset($_POST['testBut'])) {
+        $sql = "select name from images where id=1";
+        $result = mysqli_query($con,$sql);
+        $row = mysqli_fetch_array($result);
+
+        $image = $row['name'];
+        $image_src = "/mnt/avatars/".$image;
+        echo '<img src="'.$image_src.'">';
+    }
   
 
     
@@ -48,6 +58,7 @@
     <form method="post" action="" enctype='multipart/form-data'>
         <input type='file' name='file' />
         <input type='submit' value='Save name' name='but_upload'>
+        <input type='submit' value='Show smthing' name='testBut'>
     </form>
 </body>
 </html>
