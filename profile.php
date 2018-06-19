@@ -18,10 +18,27 @@
         $extensions_arr = array("jpg","jpeg","png","gif");
         // Check extension
         if( in_array($imageFileType,$extensions_arr) ){
-            $query = "insert into images(name) values('".$user['username']."') ON DUPLICATE KEY UPDATE";
-            mysqli_query($db,$query);
-            // Upload file
-            move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$user['username']);
+            // $query = "insert into images(name) values('".$user['username']."') ON DUPLICATE KEY UPDATE";
+            // mysqli_query($db,$query);
+
+
+            $usrname = $user['username'];
+            //INSERT 
+            $query = " INSERT INTO images ( name, extension )  VALUES ( '$usrname', '$imageFileType' ) "; 
+            $result = mysqli_query($db, $query); 
+
+            if( $result )
+            {
+                echo 'Success';
+                // Upload file
+                move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$user['username']);
+            }
+            else
+            {
+                echo 'Query Failed';
+            }
+
+           
         }
     }
 
