@@ -28,7 +28,8 @@
     }
 
     if (isset($_POST['testBut'])) {
-        $sql = "select name from images where id=1";
+        $sql = sprintf("select name from images where name='%s'",mysql_real_escape_string($user['username']));
+        
         $result = mysqli_query($db,$sql);
         $row = mysqli_fetch_array($result);
 
@@ -36,7 +37,7 @@
 
         $image = $row['name'];
 	    $image_src = "avatars/".$image;
-	echo $image_src;
+	    echo $image_src;
         echo '<img src="'.$image_src.'" height="100" width="100">';
     }
   
