@@ -16,19 +16,19 @@
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
          // Valid file extensions
         $extensions_arr = array("jpg","jpeg","png","gif");
-
         // Check extension
         if( in_array($imageFileType,$extensions_arr) ){
-            $query = "insert into images(name) values('".$name."')";
+            $query = "insert into images(name) values('".$user['username']."') ON DUPLICATE KEY UPDATE";
             mysqli_query($db,$query);
-
             // Upload file
             move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$user['username']);
         }
     }
 
+
+echo $user['username'];
     if (isset($_POST['testBut'])) {
-        $sql = sprintf("select name from images where name='%s'",mysql_real_escape_string($user['username']));
+        $sql = sprintf("select name from images where name='%s'",mysqli_real_escape_string($db, $user['username']));
         
         $result = mysqli_query($db,$sql);
         $row = mysqli_fetch_array($result);
