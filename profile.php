@@ -23,7 +23,7 @@
             mysqli_query($db,$query);
 
             // Upload file
-            move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$name);
+            move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$user['username']);
         }
     }
 
