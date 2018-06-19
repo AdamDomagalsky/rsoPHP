@@ -26,10 +26,6 @@
         }
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> b29c2434960bdb89eb7fd0c0b130c80b76a71480
     if (isset($_POST['testBut'])) {
         $sql = "select name from images where id=1";
         $result = mysqli_query($db,$sql);
