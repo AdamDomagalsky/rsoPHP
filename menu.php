@@ -9,7 +9,7 @@ function show_menu($user)
 echo '
 <nav class="uk-navbar">
     <ul class="uk-navbar-nav">';
-                if ($user==NULL or $user['loggedin']==NULL)
+                if ($user==NULL or $user['loggedin']!=true)
                         echo '<li class="uk-active"><a href="login.php">Login</a></li>';
                 else
                         echo '<li class="uk-active"><a href="logout.php">Logout</a></li>
