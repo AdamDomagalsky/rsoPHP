@@ -80,7 +80,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
 
-            if (isset($_POST['beAdmin'] == 'Yes')) {
+            if (isset($_POST['beAdmin']) == 'Yes') {
                 $param_isAdmin = 1;
             }else {
                 $param_isAdmin = 0;
@@ -135,8 +135,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
                 <span class="help-block"><?php echo $confirm_password_err; ?></span>
             </div>
-            <div>
-                <input type="checkbox" name="beAdmin" value="Yes">
+	    <div>
+		<label>Admin</label>
+                <input type="radio" name="beAdmin" value="Yes">
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Submit">
