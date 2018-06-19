@@ -1,4 +1,5 @@
 <?php
+    // http://makitweb.com/upload-and-store-an-image-in-the-database-with-php/
     // Initialize the session
     session_start();
     require_once('session.php');
@@ -34,7 +35,7 @@
 
 
         $image = $row['name'];
-	$image_src = "avatars/".$image;
+	    $image_src = "avatars/".$image;
 	echo $image_src;
         echo '<img src="'.$image_src.'" height="100" width="100">';
     }
