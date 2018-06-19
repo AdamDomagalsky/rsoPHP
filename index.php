@@ -1,7 +1,8 @@
 <?PHP
-        require_once('session.php');
-	session_start();
-	$logged=check_session();
+        //we dont need here check
+        // require_once('session.php');
+	// session_start();
+	// $logged=check_session();
 	require_once('menu.php');
 ?>
 <html>

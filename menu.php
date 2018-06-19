@@ -10,6 +10,7 @@ echo '
                 else
                         echo '<li class="uk-active"><a href="logout.php">Logout</a></li>
                               <li class="uk-parent"><a href="welcome.php">Welcome</a></li>
+                              <li class="uk-parent"><a href="profile.php">Profile</a></li>
                         ';
 echo '        <li class="uk-parent"><a href="index.php">Home</a></li>
     </ul>

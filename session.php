@@ -2,11 +2,11 @@
 
 $host = gethostname();
 require_once "{$host}config.php";
-require_once "classSession.php";
+require_once "clasSession.php";
 
 
 // kodzik znalazlem na http://php.net/manual/en/function.session-decode.php#108037
-class SSession {
+class Session {
     public static function unserialize($session_data) {
         $method = ini_get("session.serialize_handler");
         switch ($method) {
@@ -76,7 +76,7 @@ function restore_session($key){
     $rC->connect(REDIS_SERVER, REDIS_PORT);
 	$rC->auth(REDIS_PASSWORD);
 	
-	$ret = SSession::unserialize($rC->get($key));
+	$ret = Session::unserialize($rC->get($key));
     $rC->close();
 	return $ret;
 }
