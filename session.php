@@ -6,7 +6,7 @@ require_once "classSession.php";
 
 
 // kodzik znalazlem na http://php.net/manual/en/function.session-decode.php#108037
-class Session {
+class SSession {
     public static function unserialize($session_data) {
         $method = ini_get("session.serialize_handler");
         switch ($method) {
@@ -65,7 +65,7 @@ function check_session(){
         exit;
     } else {
         $token="PHPREDIS_SESSION:{$_COOKIE['PHPSESSID']}";
-        restore_session($token);
+	return restore_session($token);
     }
 }
 
@@ -74,7 +74,7 @@ function restore_session($key){
     $rC->connect(REDIS_SERVER, REDIS_PORT);
 	$rC->auth(REDIS_PASSWORD);
 	
-	$ret = Session::unserialize($rC->get($key));
+	$ret = SSession::unserialize($rC->get($key));
     $rC->close();
 	return $ret;
 }
