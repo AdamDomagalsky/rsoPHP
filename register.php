@@ -64,14 +64,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     // Check input errors before inserting in database
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
-        
-
-        
-
 
         // Prepare an insert statement
         $sql = "INSERT INTO users (username, password, isAdmin) VALUES (?, ?, ?)";
-         
+        $dbMaster = mysqli_connect(DB_SERVER_MASTER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+        $dbSlave = mysqli_connect(DB_SERVER_SLAVE,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+        if($dbSlave === false){
+            die("ERROR(dbSlave): Could not connect. " . mysqli_connect_error());
+            exit;
+        }
+        if($dbMaster === false){
+            die("ERROR(dbMaster): Could not connect. " . mysqli_connect_error());
+            exit;
+        } 
+
+
         if($stmt = mysqli_prepare($dbMaster, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "sss", $param_username, $param_password, $param_isAdmin);
@@ -97,11 +104,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
          
         // Close statement
         mysqli_stmt_close($stmt);
+        // Close connection
+        mysqli_close($dbMaster);
+        mysqli_close($dbSlave);
     }
-    
-    // Close connection
-    mysqli_close($dbMaster);
-    mysqli_close($dbSlave);
 }
 ?>
  

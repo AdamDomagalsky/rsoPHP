@@ -16,7 +16,7 @@ function session_check()
         $token = $_COOKIE['MYSID'];
     }
     
-    $expire = isset($_POST['remember']) ? 0 : 3600;
+    $expire = isset($_POST['remember']) ? 0 : 600;
 
     if (isset($_POST['username']) and isset($_POST['password'])) {
         return authorize($_POST['username'], $_POST['password'], $token, $expire);
