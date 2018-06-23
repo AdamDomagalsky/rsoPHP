@@ -3,6 +3,10 @@
     // Initialize the session
     require_once('functions.php');
     $user = session_check();
+    if (!isset($user['id'])) {
+        header("location: index.php");
+        exit;
+    }
     $host = gethostname();
     require_once "{$host}config.php";
 
@@ -48,20 +52,17 @@
     }
 
 
-echo $user['username'];
     if (isset($_POST['testBut'])) {
-	$dbSlave = mysqli_connect(DB_SERVER_SLAVE,DB_USERNAME,DB_PASSWORD,DB_DATABASE);	    
+	    $dbSlave = mysqli_connect(DB_SERVER_SLAVE,DB_USERNAME,DB_PASSWORD,DB_DATABASE);	    
 	    $sql = sprintf("select name from images where name='%s'",mysqli_real_escape_string($dbSlave, $user['username']));
 
         $result = mysqli_query($dbSlave,$sql);
         $row = mysqli_fetch_array($result);
 
-
-
-        $image = $row['name'];
+        $image = (is_null($row)) ? "default" : $row['name'];
 	    $image_src = "avatars/".$image;
-	    echo $image_src;
-        echo '<img src="'.$image_src.'" height="100" width="100">';
+	    // echo $image_src;
+        // echo '<img src="'.$image_src.'" height="100" width="100">';
     }
   
 
@@ -87,5 +88,6 @@ echo $user['username'];
         <input type='submit' value='Save name' name='but_upload'>
         <input type='submit' value='Show smthing' name='testBut'>
     </form>
+    <?PHP echo '<img src="'.$image_src.'" height="100" width="100">'; ?>
 </body>
 </html>

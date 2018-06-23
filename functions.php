@@ -9,17 +9,15 @@ function session_check()
         setcookie('MYSID', $token);
         $user = array(
             'id' => NULL,
-            'username' => "Visitor",
-            'username_err' => NULL,
-            'password_err' => NULL
+            'username' => "Visitor"
         );
         redis_set_json($token, $user, 0);
     } else {
-        $token = $_COOKIE['MYSID'];
+        $token = "MYSID:".$_COOKIE['MYSID'];
     }
     
     $expire = isset($_POST['remember']) ? 0 : 600;
-
+    
     if (isset($_POST['username']) and isset($_POST['password'])) {
         return authorize($_POST['username'], $_POST['password'], $token, $expire);
     } else {
@@ -27,53 +25,35 @@ function session_check()
     }
 }
 
-function authorize($username, $password, $token)
+function authorize($username, $password, $token, $expire)
 {
-
-
-
-	
     if ($username != NULL and $password != NULL) {
         // if ($username=="kalkos" and $password=="qwerty")
         //         $user=array('id'=>333,'username'=>$username);
         // else
         //         $user=array('id'=>NULL,'username'=>"Visitor");
-        $user         = array();
-        $user['username_err'] = $user['password_err'] = "";
+        $user = array();
         
         // Processing form data when form is submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Check if username is empty
-            if (empty(trim($username))) {
-                $user['username_err'] = 'Please enter username.';
-            } else {
-                $user['username'] = trim($username);
-            }
-            // Check if password is empty
-            if (empty(trim($password))) {
-                $user['password_err'] = 'Please enter your password.';
-            } else {
-                $password = trim($password);
-	    }
-
-            // Validate credentials
-            if (empty($username_err) && empty($password_err)) {
+            
+            // Validate credentials            
+            if (empty($user['username_err']) && empty($user['password_err'])) {
                 // Prepare a select statement
-                $sql = "SELECT id, username, password, isAdmin FROM users WHERE username = ?";
-                $dbSlave = mysqli_connect(DB_SERVER_SLAVE,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
-                if($dbSlave === false){
+                $sql     = "SELECT id, username, password, isAdmin FROM users WHERE username = ?";
+                
+                $dbSlave = mysqli_connect(DB_SERVER_SLAVE, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+                if ($dbSlave === false) {
                     die("ERROR(dbSlave): Could not connect. " . mysqli_connect_error());
                     exit;
                 }
-
-
-		if ($stmt = mysqli_prepare($dbSlave, $sql)) {
+                
+                
+                if ($stmt = mysqli_prepare($dbSlave, $sql)) {
                     // Bind variables to the prepared statement as parameters
                     mysqli_stmt_bind_param($stmt, "s", $param_username);
-		    // Set parameters
-		    
-	    echo $username;
-		    $param_username = $username;
+                    // Set parameters
+                    $param_username = $username;
                     
                     // Attempt to execute the prepared statement
                     if (mysqli_stmt_execute($stmt)) {
@@ -93,12 +73,14 @@ function authorize($username, $password, $token)
                                     return $user;
                                 } else {
                                     // Display an error message if password is not valid
+                                    $user = array();
                                     $user['password_err'] = 'The password you entered was not valid.';
                                     return $user;
                                 }
                             }
                         } else {
                             // Display an error message if username doesn't exist
+                            $user = array();
                             $user['username_err'] = 'No account found with that username.';
                             return $user;
                         }
@@ -108,28 +90,16 @@ function authorize($username, $password, $token)
                 }
                 // Close statement
                 mysqli_stmt_close($stmt);
-                   // Close connection
-	        mysqli_close($dbSlave);
+                // Close connection
+                mysqli_close($dbSlave);
             }
-         
+            
         }
     } else {
         return redis_get_json($token);
     }
 }
 
-function logout($user)
-{
-    $token = $_COOKIE['MYSID'];
-    $user  = array(
-        'id' => NULL,
-        'username' => "Visitor",
-        'username_err' => NULL,
-        'password_err' => NULL
-    );
-    redis_set_json($token, $user, "0");
-    return $user;
-}
 function redis_set_json($key, $val, $expire)
 {
     $rC = new Redis();
@@ -147,7 +117,7 @@ function redis_set_json($key, $val, $expire)
 function redis_get_json($key)
 {
     $rC = new Redis();
-    $rC->connect(REDIS_SERVER, REDIS_PORT); 
+    $rC->connect(REDIS_SERVER, REDIS_PORT);
     $rC->auth(REDIS_PASSWORD);
     $ret = json_decode($rC->get($key), true);
     $rC->close();
@@ -162,8 +132,8 @@ function show_menu($user)
     if ($user == NULL or $user['id'] != true)
         echo '<li class="uk-active"><a href="login.php">Login</a></li>';
     else
-        echo '<li class="uk-active"><a href="logout.php">Logout</a></li>
-<li class="uk-parent"><a href="welcome.php">Welcome</a></li>
+        echo '<li class="uk-active"><a href="logout.php">Logout!</a></li>
+<li class="uk-parent"><a href="wall.php">Wall</a></li>
 <li class="uk-parent"><a href="profile.php">Profile</a></li>
 ';
     echo '        <li class="uk-parent"><a href="index.php">Home</a></li>

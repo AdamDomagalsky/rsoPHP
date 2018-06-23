@@ -1,12 +1,12 @@
 <?php
-// Include config file
-require_once "functions.php";
-$user = session_check();
+    // Include config file
+    require_once "functions.php";
+    $user = session_check();
 
-if (isset($user['id'])) {
-    header("location: index.php");
-    exit;
-}
+    if (isset($user['id'])) {
+        header("location: index.php");
+        exit;
+    }
 ?>
  
 <!DOCTYPE html>
@@ -14,6 +14,8 @@ if (isset($user['id'])) {
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.3/css/uikit.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.3/js/uikit.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style type="text/css">
         body{ font: 14px sans-serif; }

@@ -7,13 +7,15 @@
 <head>
         <title>Home</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.3/css/uikit.min.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.3/js/uikit.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
         <style type="text/css">
            body{ font: 14px sans-serif; text-align: center; }
         </style>
 </head>
 <body>
-<?PHP show_menu($user); ?>
-Hello <?PHP echo $user['username']; ?>! This is my website.
+        <?PHP show_menu($user); ?>
+        <div class="page-header">
+                Hello <?PHP echo $user['username']; ?>! This is my website.
+        </div>
 </body>
 </html>
