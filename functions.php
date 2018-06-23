@@ -9,7 +9,9 @@ function session_check()
         setcookie('MYSID', $token);
         $user = array(
             'id' => NULL,
-            'username' => "Visitor"
+            'username' => "Visitor",
+            'username_err' => NULL,
+            'password_err' => NULL
         );
         redis_set_json($token, $user, 0);
     } else {
@@ -121,7 +123,9 @@ function logout($user)
     $token = $_COOKIE['MYSID'];
     $user  = array(
         'id' => NULL,
-        'username' => "Visitor"
+        'username' => "Visitor",
+        'username_err' => NULL,
+        'password_err' => NULL
     );
     redis_set_json($token, $user, "0");
     return $user;
