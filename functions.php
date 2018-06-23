@@ -78,13 +78,14 @@ function authorize($username, $password, $token)
                                     return $user;
                                 } else {
                                     // Display an error message if password is not valid
-                                    $password_err = 'The password you entered was not valid.';
-                                    return false;
+                                    $user['password_err'] = 'The password you entered was not valid.';
+                                    return $user;
                                 }
                             }
                         } else {
                             // Display an error message if username doesn't exist
-                            $username_err = 'No account found with that username.';
+                            $user['username_err'] = 'No account found with that username.';
+                            return $user
                         }
                     } else {
                         echo "Oops! Something went wrong. Please try again later.";
