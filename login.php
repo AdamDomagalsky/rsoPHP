@@ -1,7 +1,5 @@
 <?php
 // Include config file
-$host = gethostname();
-require_once "{$host}config.php";
 require_once "functions.php";
 $user = session_check();
 
@@ -29,7 +27,7 @@ if (isset($user['id'])) {
         <form action="login.php" method="post">
             <div class="form-group <?php echo (!empty($user['username_err'])) ? 'has-error' : ''; ?>">
                 <label>Username</label>
-                <input type="text" name="username"class="form-control" value="<?php echo $username; ?>">
+                <input type="text" name="username"class="form-control" value="<?php echo $user['username']; ?>">
                 <span class="help-block"><?php echo $user['username_err']; ?></span>
             </div>    
             <div class="form-group <?php echo (!empty($user['password_err'])) ? 'has-error' : ''; ?>">

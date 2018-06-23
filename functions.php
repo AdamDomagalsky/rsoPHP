@@ -17,7 +17,7 @@ function session_check()
     }
     
     $expire = isset($_POST['remember']) ? 0 : 3600;
-    
+
     if (isset($_POST['username']) and isset($_POST['password'])) {
         return authorize($_POST['username'], $_POST['password'], $token, $expire);
     } else {
@@ -27,6 +27,10 @@ function session_check()
 
 function authorize($username, $password, $token)
 {
+
+
+
+	
     if ($username != NULL and $password != NULL) {
         // if ($username=="kalkos" and $password=="qwerty")
         //         $user=array('id'=>333,'username'=>$username);
@@ -48,17 +52,20 @@ function authorize($username, $password, $token)
                 $user['password_err'] = 'Please enter your password.';
             } else {
                 $password = trim($password);
-            }
+	    }
+
             // Validate credentials
             if (empty($username_err) && empty($password_err)) {
                 // Prepare a select statement
                 $sql = "SELECT id, username, password, isAdmin FROM users WHERE username = ?";
-                
-                if ($stmt = mysqli_prepare($dbSlave, $sql)) {
+		
+		if ($stmt = mysqli_prepare($dbSlave, $sql)) {
                     // Bind variables to the prepared statement as parameters
                     mysqli_stmt_bind_param($stmt, "s", $param_username);
-                    // Set parameters
-                    $param_username = $username;
+		    // Set parameters
+		    
+	    echo $username;
+		    $param_username = $username;
                     
                     // Attempt to execute the prepared statement
                     if (mysqli_stmt_execute($stmt)) {
@@ -85,7 +92,7 @@ function authorize($username, $password, $token)
                         } else {
                             // Display an error message if username doesn't exist
                             $user['username_err'] = 'No account found with that username.';
-                            return $user
+                            return $user;
                         }
                     } else {
                         echo "Oops! Something went wrong. Please try again later.";
@@ -95,7 +102,7 @@ function authorize($username, $password, $token)
                 mysqli_stmt_close($stmt);
             }
             // Close connection
-            mysqli_close($dbSlave);
+	    mysqli_close($dbSlave);
         }
     } else {
         return redis_get_json($token);
