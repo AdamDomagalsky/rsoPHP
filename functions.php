@@ -1,4 +1,8 @@
 <?PHP
+    $host = gethostname();
+    require_once "{$host}config.php";
+
+
 function session_check()
 {
         if(!isset($_COOKIE['MYSID'])) {
