@@ -18,15 +18,23 @@
     define('REDIS_PASSWORD','zaq12wsx');
 
     
-    define('DB_SERVER', 'localhost:3306');
+    define('DB_SERVER_MASTER', 'localhost:3306');
+    define('DB_SERVER_SLAVE', '192.168.100.20:3306');
     define('DB_USERNAME', 'regLog');
     define('DB_PASSWORD', 'zaq12wsx');
     define('DB_DATABASE', 'testdb');
-    $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
-
+    
+    
+    $dbMaster = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
     // Check connection
-    if($db === false){
-        die("ERROR: Could not connect. " . mysqli_connect_error());
+    if($dbMaster === false){
+        die("ERROR(dbMaster): Could not connect. " . mysqli_connect_error());
+    }
+
+    $dbSlave = mysqli_connect(DB_SERVER_SLAVE,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+    // Check connection
+    if($dbSlave === false){
+        die("ERROR(dbSlave): Could not connect. " . mysqli_connect_error());
     }
 ?>
 
