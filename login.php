@@ -2,6 +2,7 @@
 // Include config file
 $host = gethostname();
 require_once "{$host}config.php";
+require_once "functions.php";
  
 // Define variables and initialize with empty values
 $username = $password = "";
@@ -49,11 +50,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         if(password_verify($password, $hashed_password)){
                             /* Password is correct, so start a new session and
                             save the username to the session */
-                            session_start();
-                            $_SESSION['username'] = $username; 
-                            $_SESSION['loggedin'] = true;      
-                            $_SESSION['pole'] = 'zeby bylo ze dziala xD';
-                            $_SESSION['isAdmin'] = $isAdmin;
+                            $_POST['username'] = $username; 
+                            $_POST['loggedin'] = true;      
+                            $_POST['pole'] = 'zeby bylo ze dziala xD';
+                            $_POST['isAdmin'] = $isAdmin;
+                            authorize($_POST['username'],$_POST['loggedin'],$token)
+
                             if ($isAdmin == 1) {
                                 header("location: profile.php");
                             } else {

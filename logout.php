@@ -1,14 +1,13 @@
 <?php
-// Initialize the session
-session_start();
- 
-// Unset all of the session variables
-$_SESSION = array();
- 
-// Destroy the session.
-session_destroy();
+
+$token=$_COOKIE['MYSID'];
+$user=array('username'=>"Visitor");
+redis_set_json($token,$user,"0");
+
  
 // Redirect to login page
 header("location: login.php");
+
+return $user;
 exit;
 ?>

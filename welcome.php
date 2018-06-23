@@ -1,8 +1,7 @@
 <?php
     // Initialize the session
-    session_start();
-    require_once('session.php');
-    $user = check_session();
+    require_once('functions.php');
+	$user=session_check();
     require_once('menu.php');
 ?>
  
@@ -22,7 +21,7 @@
     
     <?PHP show_menu($user); ?>
 <div class="page-header">
-        <h1>Hi, <b><?php echo htmlspecialchars($_SESSION['username']); ?></b>. Welcome to our site.</h1>
+        <h1>Hi, <b><?php echo htmlspecialchars($user['username']); ?></b>. Welcome to our site.</h1>
     </div>
 
     <p><a href="index.php" class="btn btn-success">Go Back to index.php</a></p>
