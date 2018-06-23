@@ -1,10 +1,8 @@
 <?php
     // http://makitweb.com/upload-and-store-an-image-in-the-database-with-php/
     // Initialize the session
-    session_start();
-    require_once('session.php');
-    $user = check_session();
-    require_once('menu.php');
+    require_once('functions.php');
+    $user = session_check();
     $host = gethostname();
     require_once "{$host}config.php";
 
@@ -24,8 +22,15 @@
 
             $usrname = $user['username'];
             //INSERT 
-            $query = " INSERT INTO images ( name, extension )  VALUES ( '$usrname', '$imageFileType' ) "; 
-            $result = mysqli_query($db, $query); 
+            $dbMaster = mysqli_connect(DB_SERVER_MASTER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+
+           if($dbMaster === false){
+              die("ERROR(dbMaster): Could not connect. " . mysqli_connect_error());
+              exit;
+           } 
+ 
+	    $query = " INSERT INTO images ( name, extension )  VALUES ( '$usrname', '$imageFileType' ) "; 
+            $result = mysqli_query($dbMaster, $query); 
 
             if( $result )
             {
@@ -45,9 +50,10 @@
 
 echo $user['username'];
     if (isset($_POST['testBut'])) {
-        $sql = sprintf("select name from images where name='%s'",mysqli_real_escape_string($db, $user['username']));
-        
-        $result = mysqli_query($db,$sql);
+	$dbSlave = mysqli_connect(DB_SERVER_SLAVE,DB_USERNAME,DB_PASSWORD,DB_DATABASE);	    
+	    $sql = sprintf("select name from images where name='%s'",mysqli_real_escape_string($dbSlave, $user['username']));
+
+        $result = mysqli_query($dbSlave,$sql);
         $row = mysqli_fetch_array($result);
 
 

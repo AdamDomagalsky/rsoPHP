@@ -2,7 +2,6 @@
     // Initialize the session
     require_once('functions.php');
 	$user=session_check();
-    require_once('menu.php');
 ?>
  
 <!DOCTYPE html>

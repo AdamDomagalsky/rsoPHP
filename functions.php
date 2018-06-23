@@ -169,7 +169,6 @@ function show_menu($user)
     echo '        <li class="uk-parent"><a href="index.php">Home</a></li>
 </ul>
 </nav>';
-    echo $user;
     echo '<pre>';
     print_r($user);
     echo '</pre>';
