@@ -23,8 +23,7 @@ function session_check()
 }
 function authorize($username, $password, $token)
 {
-	if ($username!=NULL and $password!=NULL)
-		{
+	if ($username!=NULL and $password!=NULL) {
 			// if ($username=="kalkos" and $password=="qwerty")
 			//         $user=array('id'=>333,'username'=>$username);
 			// else
@@ -99,32 +98,33 @@ function authorize($username, $password, $token)
 }
 function logout($user)
 {
-				$token=$_COOKIE['MYSID'];
-				$user=array('id'=>NULL,'username'=>"Visitor");
-				redis_set_json($token,$user,"0");
-				return $user;
+	$token=$_COOKIE['MYSID'];
+	$user=array('id'=>NULL,'username'=>"Visitor");
+	redis_set_json($token,$user,"0");
+	return $user;
 }
 function redis_set_json($key, $val, $expire)
 {
-				$rC = new Redis();
-				$rC->connect( REDIS_SERVER, REDIS_PORT );
-				$rc->auth(REDIS_PASSWORD);
+	$rC = new Redis();
+	$rC->connect( REDIS_SERVER, REDIS_PORT );
+	$rc->auth(REDIS_PASSWORD);
 
-				$value=json_encode($val);
-				if ($expire > 0)
-								$rC->setex($key, $expire, $value );
-				else
-								$rC->set($key, $value);
-				$rC->close();
+	$value=json_encode($val);
+	if ($expire > 0)
+		$rC->setex($key, $expire, $value );
+	else
+		$rC->set($key, $value);
+		
+	$rC->close();
 }
 function redis_get_json($key)
 {
-				$rC = new Redis();
-				$rC->connect( REDIS_SERVER, REDIS_PORT );
-				$rc->auth(REDIS_PASSWORD);
-				$ret=json_decode($rC->get($key),true);
-				$rC->close();
-				return $ret;
+	$rC = new Redis();
+	$rC->connect( REDIS_SERVER, REDIS_PORT );
+	$rc->auth(REDIS_PASSWORD);
+	$ret=json_decode($rC->get($key),true);
+	$rC->close();
+	return $ret;
 }
 
 function show_menu($user)
