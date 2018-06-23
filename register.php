@@ -16,7 +16,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{
         // Prepare a select statement
         $sql = "SELECT id FROM users WHERE username = ?";
-        
+        $dbSlave = mysqli_connect(DB_SERVER_SLAVE,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+        if($dbSlave === false){
+            die("ERROR(dbSlave): Could not connect. " . mysqli_connect_error());
+            exit;
+        }
+
         if($stmt = mysqli_prepare($dbSlave, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "s", $param_username);
@@ -41,6 +46,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
          
         // Close statement
         mysqli_stmt_close($stmt);
+        mysqli_close($dbSlave);
     }
     
     // Validate password
@@ -68,16 +74,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare an insert statement
         $sql = "INSERT INTO users (username, password, isAdmin) VALUES (?, ?, ?)";
         $dbMaster = mysqli_connect(DB_SERVER_MASTER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
-        $dbSlave = mysqli_connect(DB_SERVER_SLAVE,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
-        if($dbSlave === false){
-            die("ERROR(dbSlave): Could not connect. " . mysqli_connect_error());
-            exit;
-        }
         if($dbMaster === false){
             die("ERROR(dbMaster): Could not connect. " . mysqli_connect_error());
             exit;
         } 
-
 
         if($stmt = mysqli_prepare($dbMaster, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -100,13 +100,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             } else{
                 echo "Something went wrong. Please try again later.";
             }
+            // Close statement
+            mysqli_stmt_close($stmt);
         }
-         
-        // Close statement
-        mysqli_stmt_close($stmt);
         // Close connection
         mysqli_close($dbMaster);
-        mysqli_close($dbSlave);
     }
 }
 ?>
