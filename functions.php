@@ -115,7 +115,7 @@ function redis_set_json($key, $val, $expire)
 {
     $rC = new Redis();
     $rC->connect(REDIS_SERVER, REDIS_PORT);
-    $rc->auth(REDIS_PASSWORD);
+    $rC->auth(REDIS_PASSWORD);
     
     $value = json_encode($val);
     if ($expire > 0)
@@ -128,8 +128,8 @@ function redis_set_json($key, $val, $expire)
 function redis_get_json($key)
 {
     $rC = new Redis();
-    $rC->connect(REDIS_SERVER, REDIS_PORT);
-    $rc->auth(REDIS_PASSWORD);
+    $rC->connect(REDIS_SERVER, REDIS_PORT); 
+    $rC->auth(REDIS_PASSWORD);
     $ret = json_decode($rC->get($key), true);
     $rC->close();
     return $ret;

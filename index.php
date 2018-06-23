@@ -2,7 +2,6 @@
         //we dont need here check
         require_once('functions.php');
 	$user=session_check();
-	require_once('menu.php');
 ?>
 <html>
 <head>
