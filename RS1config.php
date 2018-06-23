@@ -25,16 +25,16 @@
     define('DB_DATABASE', 'testdb');
     
     
-    $dbMaster = mysqli_connect(DB_SERVER_MASTER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
-    // Check connection
-    if($dbMaster === false){
-        die("ERROR(dbMaster): Could not connect. " . mysqli_connect_error());
-    }
+    // $dbMaster = mysqli_connect(DB_SERVER_MASTER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+    // // Check connection
+    // if($dbMaster === false){
+    //     die("ERROR(dbMaster): Could not connect. " . mysqli_connect_error());
+    // }
 
-    $dbSlave = mysqli_connect(DB_SERVER_SLAVE,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
-    // Check connection
-    if($dbSlave === false){
-        die("ERROR(dbSlave): Could not connect. " . mysqli_connect_error());
-    }
+    // $dbSlave = mysqli_connect(DB_SERVER_SLAVE,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+    // // Check connection
+    // if($dbSlave === false){
+    //     die("ERROR(dbSlave): Could not connect. " . mysqli_connect_error());
+    // }
 ?>
 

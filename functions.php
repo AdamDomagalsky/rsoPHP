@@ -58,7 +58,13 @@ function authorize($username, $password, $token)
             if (empty($username_err) && empty($password_err)) {
                 // Prepare a select statement
                 $sql = "SELECT id, username, password, isAdmin FROM users WHERE username = ?";
-		
+                $dbSlave = mysqli_connect(DB_SERVER_SLAVE,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+                if($dbSlave === false){
+                    die("ERROR(dbSlave): Could not connect. " . mysqli_connect_error());
+                    exit;
+                }
+
+
 		if ($stmt = mysqli_prepare($dbSlave, $sql)) {
                     // Bind variables to the prepared statement as parameters
                     mysqli_stmt_bind_param($stmt, "s", $param_username);
@@ -100,9 +106,10 @@ function authorize($username, $password, $token)
                 }
                 // Close statement
                 mysqli_stmt_close($stmt);
+                   // Close connection
+	        mysqli_close($dbSlave);
             }
-            // Close connection
-	    mysqli_close($dbSlave);
+         
         }
     } else {
         return redis_get_json($token);
