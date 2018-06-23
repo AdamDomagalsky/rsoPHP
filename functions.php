@@ -33,19 +33,19 @@ function authorize($username, $password, $token)
         // else
         //         $user=array('id'=>NULL,'username'=>"Visitor");
         $user         = array();
-        $username_err = $password_err = "";
+        $user['username_err'] = $user['password_err'] = "";
         
         // Processing form data when form is submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Check if username is empty
             if (empty(trim($username))) {
-                $username_err = 'Please enter username.';
+                $user['username_err'] = 'Please enter username.';
             } else {
                 $user['username'] = trim($username);
             }
             // Check if password is empty
             if (empty(trim($password))) {
-                $password_err = 'Please enter your password.';
+                $user['password_err'] = 'Please enter your password.';
             } else {
                 $password = trim($password);
             }
