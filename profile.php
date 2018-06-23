@@ -61,7 +61,7 @@
 
         $image = (is_null($row)) ? "default" : $row['name'];
 	    $image_src = "avatars/".$image;
-	    // echo $image_src;
+	    echo $image_src;
         // echo '<img src="'.$image_src.'" height="100" width="100">';
     }
   

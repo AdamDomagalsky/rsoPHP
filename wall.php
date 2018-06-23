@@ -25,10 +25,8 @@
 <div class="page-header">
         <h1>Hi, <b><?php echo htmlspecialchars($user['username']); ?></b>. Wall is in build process.</h1>
     </div>
+
     <p><a href="index.php" class="btn btn-success">Go Back to index.php</a></p>
     <p><a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a></p>
-
-
-    
 </body>
 </html>

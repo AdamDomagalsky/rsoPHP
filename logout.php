@@ -2,7 +2,7 @@
 require_once('functions.php');
 
 
-    $token = $_COOKIE['MYSID'];
+    $token = "MYSID:".$_COOKIE['MYSID'];
     echo $token;
     $user  = array(
         'id' => NULL,
@@ -10,8 +10,8 @@ require_once('functions.php');
     );
     redis_set_json($token, $user, "0");
     
-    header("location: index.php");
-    exit;
+    // header("location: index.php");
+    // exit;
 
 
 ?>
