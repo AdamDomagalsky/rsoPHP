@@ -2,6 +2,14 @@
 // Include config file
 $host = gethostname();
 require_once "{$host}config.php";
+
+require_once "functions.php";
+$user = session_check();
+
+if (isset($user['id'])) {
+    header("location: index.php");
+    exit;
+}
  
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = "";
