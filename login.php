@@ -54,7 +54,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_POST['loggedin'] = true;      
                             $_POST['pole'] = 'zeby bylo ze dziala xD';
                             $_POST['isAdmin'] = $isAdmin;
-                            authorize($_POST['username'],$_POST['loggedin'],$token)
+                            authorize($_POST['username'],$_POST['loggedin'],$token);
 
                             if ($isAdmin == 1) {
                                 header("location: profile.php");
