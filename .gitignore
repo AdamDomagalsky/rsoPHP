@@ -2,3 +2,5 @@ avatars/
 vendor/
 amqp/
 .vscode/
+composer.lock
+composer.phar

@@ -23,18 +23,14 @@
     define('DB_USERNAME', 'regLog');
     define('DB_PASSWORD', 'zaq12wsx');
     define('DB_DATABASE', 'testdb');
-    
-    
-    // $dbMaster = mysqli_connect(DB_SERVER_MASTER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
-    // // Check connection
-    // if($dbMaster === false){
-    //     die("ERROR(dbMaster): Could not connect. " . mysqli_connect_error());
-    // }
 
-    // $dbSlave = mysqli_connect(DB_SERVER_SLAVE,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
-    // // Check connection
-    // if($dbSlave === false){
-    //     die("ERROR(dbSlave): Could not connect. " . mysqli_connect_error());
-    // }
+
+    require_once __DIR__ . '/vendor/autoload.php';
+    define('RABBIT_SERVER', '192.168.47.133');
+    define('RABBIT_PORT', 5672);
+    define('RABBIT_USERNAME', 'admin');
+    define('RABBIT_PASSWORD', 'admin');
+    define('RABBIT_VHOST', '/');
+
 ?>
 

@@ -16,6 +16,8 @@
         <?PHP show_menu($user); ?>
         <div class="page-header">
                 Hello <?PHP echo $user['username']; ?>! This is my website.
+        <h1>Hi, <b><?php echo htmlspecialchars($user['username']); ?></b>. How's goin?.</h1>
+
         </div>
 </body>
 </html>
