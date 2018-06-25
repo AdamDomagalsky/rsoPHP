@@ -38,6 +38,10 @@
                 <input type="password" name="password" class="form-control">
                 <span class="help-block"><?php echo $user['password_err']; ?></span>
             </div>
+            <div>
+		    <label>Remember ME!</label>
+                <input type="radio" name="remember" value="Yes">
+            </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>

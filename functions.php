@@ -11,12 +11,11 @@ function session_check()
             'id' => NULL,
             'username' => "Visitor"
         );
-        redis_set_json($token, $user, 60);
+        redis_set_json($token, $user, 0);
     } else {
         $token = "MYSID:".$_COOKIE['MYSID'];
     }
-    // $expire = isset($_POST['remember']) ? 0 : 600;
-    $expire = 0;
+    $expire = isset($_POST['remember']) ? 0 : 600;
     if (isset($_POST['username']) and isset($_POST['password'])) {
         return authorize($_POST['username'], $_POST['password'], $token, $expire);
     } else {

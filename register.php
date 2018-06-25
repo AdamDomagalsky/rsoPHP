@@ -148,8 +148,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
                 <span class="help-block"><?php echo $confirm_password_err; ?></span>
             </div>
-	    <div>
-		<label>Admin</label>
+	        <div>
+		    <label>Admin</label>
                 <input type="radio" name="beAdmin" value="Yes">
             </div>
             <div class="form-group">
