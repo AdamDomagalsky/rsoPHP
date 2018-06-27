@@ -15,7 +15,7 @@ function session_check()
     } else {
         $token = "MYSID:".$_COOKIE['MYSID'];
     }
-    $expire = isset($_POST['remember']) ? 0 : 600;
+    $expire = isset($_POST['remember']) ? 0 : 1800;
     if (isset($_POST['username']) and isset($_POST['password'])) {
         return authorize($_POST['username'], $_POST['password'], $token, $expire);
     } else {
@@ -124,6 +124,7 @@ function redis_get_json($key)
 
 function show_menu($user)
 {
+    echo gethostname();
     echo '
 <nav class="uk-navbar">
 <ul class="uk-navbar-nav">';

@@ -17,12 +17,12 @@ $ch->queue_bind($queue, $exchange);
 
 $message = $ch->basic_get($queue);
 
-if (empty($message)) {
-    $ch->close();
-    $conn->close();
-    echo 'COS NIE DZIALA';
-    return false;
-}
+// if (empty($message)) {
+//     $ch->close();
+//     $conn->close();
+//     echo 'COS NIE DZIALA';
+//     return false;
+// }
 
 $ch->basic_ack($message->delivery_info['delivery_tag']);
 
